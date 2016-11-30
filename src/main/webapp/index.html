@@ -1,0 +1,22 @@
+<!doctype html>
+<html data-ng-app='meetings.app'>
+  <head>
+    <script src="angular.min.js"></script>
+    <script src="angular-route.min.js"></script>
+    <script src="meetings.js"></script>
+    <link href="bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="meetings.css">
+  </head>
+  <body>
+  	<div class="container-fluid">
+		<div class="row">
+			<div id="main" class="col-sm-12">
+		    <h2>Meeting Centre</h2>
+		    </div>
+		</div>
+		<!-- begin view (content changed by route)  -->
+		<div data-ng-view></div>
+		<!-- end view...  -->
+	</div>
+  </body>
+</html>
