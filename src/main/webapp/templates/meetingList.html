@@ -1,0 +1,50 @@
+  <div class="row">
+    <div class="col-sm-8">
+      <div class="panel panel-info">
+          <table class="table table-striped table-bordered table-hover table-condensed">
+            <tr><th>Meeting</th><th>Duration</th><th>Meeting URL</th></tr>
+            <tr ng-repeat="meeting in meetings">
+              <td><a class="meetingLink" href="#/{{meeting.id}}">{{meeting.title}}</a></td><td>{{meeting.duration}}</td><td><a href="{{meeting.meetingURL}}" ng-if="meeting.meetingURL != null">{{meeting.meetingURL}}</a></td>
+            </tr>
+          </table>
+      </div>
+    </div>
+    <!-- Add a new meeting: will wrap to the bottom for narrow screens -->
+    <div class="col-sm-4">
+      <div class="panel panel-default">
+          <div class="panel-body">
+          <h4>Add a new meeting</h4>
+          <form name="meetingForm" ng-submit="addMeeting(newMeeting)" class="form">
+            <div class="form-group"
+                 data-ng-class="{true:'has-error', false:''}[(meetingForm.mtgId.$error.pattern)]">
+              <input type="text" size="30" class="form-control" 
+               ng-model="newMeeting.id" name="mtgId"
+               placeholder="url-friendly-id"
+               title="Provide a URL-safe string that will be used as the meeting id: should contain only alphanumeric, underscore and dash characters"
+               required data-ng-pattern="/^[A-Za-z_0-9\-]*$/">
+            </div>
+            <div class="form-group">
+              <input type="text" size="50" class="form-control" 
+               ng-model="newMeeting.title" name="title"
+               placeholder="description"
+               title="Describe this meeting to help others find it in a list"
+               required>
+            </div>
+            <div class="form-group"
+                 data-ng-class="{true:'has-error', false:''}[(meetingForm.duration.$error.pattern)]">
+              <input type="number" size="3" class="form-control" 
+               ng-model="newMeeting.duration" name="duration"
+               placeholder="duration (minutes)"
+               title="Specify the meeting duration in minutes"
+               required data-ng-pattern="/^\d*$/" >
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary"  data-ng-disabled="meetingForm.$invalid">add</button>
+            </div>
+            <div class="has-error" data-ng-show="meetingForm.mtgId.$error.pattern"><span class="help-block">Meeting id can only contain alphanumeric, underscore and dash.</span></div>
+            <div class="has-error" data-ng-show="meetingForm.duration.$error.pattern"><span class="help-block">Duration must be a number (minutes).</span></div>
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>

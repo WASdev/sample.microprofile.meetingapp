@@ -1,0 +1,9 @@
+      <div class="panel-body">
+            <p>You have not provided your meeting id. Please provide it and click Begin.</p>
+            <form ng-submit="startMeeting(meeting)" class="form-inline">
+             <input type="text" class="form-control"
+               ng-model="meeting.meetingURL" size="30"
+               placeholder="add meeting Id">
+             <button type="submit" class="btn btn-primary">Begin</button>
+            </form>
+      </div>
