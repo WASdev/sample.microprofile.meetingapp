@@ -5,10 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.json.Json;
-import javax.json.JsonNumber;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
-import javax.json.JsonString;
 import javax.json.JsonValue;
 
 public class MeetingsUtil {
