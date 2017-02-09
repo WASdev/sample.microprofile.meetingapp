@@ -1,6 +1,9 @@
 package net.wasdev.samples.microProfile.meetings;
 
+import java.util.concurrent.TimeUnit;
+
 import javax.annotation.Resource;
+import javax.enterprise.concurrent.ManagedScheduledExecutorService;
 import javax.enterprise.context.ApplicationScoped;
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -15,6 +18,8 @@ import com.mongodb.DBObject;
 public class MeetingManager {
 	@Resource(name = "mongo/sampledb")
 	private DB meetings;
+	@Resource
+	private ManagedScheduledExecutorService executor;
 
 	public DBCollection getColl() {
 		return meetings.getCollection("meetings");
@@ -43,11 +48,25 @@ public class MeetingManager {
 	}
 
 	public void startMeeting(JsonObject meeting) {
-		String id = meeting.getString("id");
+		final String id = meeting.getString("id");
 		String url = meeting.getString("meetingURL");
 		DBCollection coll = getColl();
 		DBObject obj = coll.findOne(id);
 		obj.put("meetingURL", url);
 		coll.save(obj);
+
+		long duration = ((Number) obj.get("duration")).longValue();
+		TimeUnit unit = TimeUnit.MINUTES;
+		executor.schedule(new Runnable() {
+
+			@Override
+			public void run() {
+				DBCollection coll = getColl();
+				DBObject obj = coll.findOne(id);
+				obj.removeField("meetingURL");
+				coll.save(obj);
+				System.out.println(id + " meeting ended");
+			}
+		}, duration, unit);
 	}
 }

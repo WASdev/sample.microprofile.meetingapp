@@ -132,6 +132,12 @@
             <version>2.14.3</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+        	<groupId>javax.enterprise.concurrent</groupId>
+        	<artifactId>javax.enterprise.concurrent-api</artifactId>
+        	<version>1.0</version>
+        	<scope>provided</scope>
+        </dependency>
     </dependencies>
     
     <build>
@@ -260,7 +266,7 @@
                     </execution>
                     <execution>
                         <id>install-feature</id>
-                        <phase>pre-integration-test</phase>
+                        <phase>package</phase>
                         <goals>
                             <goal>install-feature</goal>
                         </goals>
@@ -268,6 +274,7 @@
                             <features>
                                 <acceptLicense>true</acceptLicense>
                                 <feature>mongodb-2.0</feature>
+                                <feature>concurrent-1.0</feature>
                             </features>
                         </configuration>
                     </execution>

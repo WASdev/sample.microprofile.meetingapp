@@ -23,6 +23,7 @@
 
     <featureManager>
         <feature>mongodb-2.0</feature>
+        <feature>concurrent-1.0</feature>
     </featureManager>
 
     <httpEndpoint httpPort="${default.http.port}" httpsPort="${default.https.port}"
