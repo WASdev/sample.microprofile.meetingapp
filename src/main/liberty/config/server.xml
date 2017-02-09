@@ -21,13 +21,23 @@
  below or put a server.xml file in configDropins/overrides. Note: you may need to add Maven provided
  dependencies for use at compile time if not using app accelerator dependencies. -->
 
-    <!-- 
     <featureManager>
-        <feature><feature>
+        <feature>mongodb-2.0</feature>
     </featureManager>
-     -->
 
     <httpEndpoint httpPort="${default.http.port}" httpsPort="${default.https.port}"
         id="defaultHttpEndpoint" />
+
+    <library id="mongodriver">
+      <file name="${shared.resource.dir}/mongo-java-driver.jar"/>
+    </library>
+    <mongo id="mongo" libraryRef="mongodriver">
+      <ports>27017</ports>
+      <hostNames>localhost</hostNames>
+    </mongo>
+    <mongoDB databaseName="meetings" jndiName="mongo/sampledb" mongoRef="mongo"/>
+    <webApplication location="meetings-${project.version}.war">
+      <classloader commonLibraryRef="mongodriver"/>
+    </webApplication>
 
 </server>
