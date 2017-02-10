@@ -9,6 +9,8 @@ import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
+import javax.enterprise.event.Event;
+import javax.inject.Inject;
 
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
@@ -20,6 +22,9 @@ public class MeetingManager {
 	private DB meetings;
 	@Resource
 	private ManagedScheduledExecutorService executor;
+	@Inject
+	@MeetingEvent
+	private Event<MeetingStartEvent> events;
 
 	public DBCollection getColl() {
 		return meetings.getCollection("meetings");
@@ -68,5 +73,8 @@ public class MeetingManager {
 				System.out.println(id + " meeting ended");
 			}
 		}, duration, unit);
+
+		MeetingStartEvent eventObject = new MeetingStartEvent(id, url);
+		events.fire(eventObject);
 	}
 }
