@@ -43,7 +43,7 @@
         <repository>
             <id>liberty-starter-maven-repo</id>
             <name>liberty-starter-maven-repo</name>
-        <url>http://liberty-app-accelerator.wasdev.developer.ibm.com/start/api/v1/repo</url>
+        <url>https://liberty-app-accelerator.wasdev.developer.ibm.com/start/api/v1/repo</url>
         </repository>
     </repositories>
 
